@@ -25,7 +25,7 @@ class App(customtkinter.CTk):
         self.button_start = customtkinter.CTkButton(self, text="Start Timer", command=self.start_timer)
         self.button_start.grid(row=2, column=0, padx=20, pady=20)
 
-        self.button_stop = customtkinter.CTkButton(self, text="Stop Timer", command=self.stop_countdown)
+        self.button_stop = customtkinter.CTkButton(self, text="Pause Timer", command=self.stop_countdown)
         self.button_stop.grid(row=2, column=1, padx=20, pady=20)
 
         self.button_reset = customtkinter.CTkButton(self, text="Reset Timer", command=lambda : self.reset_countdown())
@@ -64,6 +64,7 @@ class App(customtkinter.CTk):
             timer = datetime.timedelta(seconds=self.total_seconds)
             # update the label with the time and the word "Paused"
             self.label_Time.configure(text="Time remaining: " + str(timer) + " PAUSED")
+            self.button_stop.configure(text="Resume Timer")
         
     def countdown(self):
         # check if the total seconds are zero
@@ -75,6 +76,7 @@ class App(customtkinter.CTk):
         elif self.event.is_set():
             pass
         else:
+            self.button_stop.configure(text="Pause Timer")
             # update the label with the remaining time
             timer = datetime.timedelta(seconds=self.total_seconds)
             self.label_Time.configure(text="Time remaining: " + str(timer))
