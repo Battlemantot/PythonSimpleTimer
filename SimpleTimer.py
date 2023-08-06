@@ -36,6 +36,7 @@ class App(customtkinter.CTk):
         # create a thread object, so program doesn't hang on countdown
         self.thread = threading.Thread(target=self.countdown)
 
+    # Timer start function
     def start_timer(self):
         # get the user input values
         h = int(self.entry_Hours.get())
@@ -49,7 +50,7 @@ class App(customtkinter.CTk):
         if not self.thread.is_alive():
             self.thread.start()
     
-    # Implement a timer pause function
+    # Timer pause function
     def stop_countdown(self):
         # check if the event flag is set or not
         if self.event.is_set():
@@ -65,7 +66,8 @@ class App(customtkinter.CTk):
             # update the label with the time and the word "Paused"
             self.label_Time.configure(text="Time remaining: " + str(timer) + " PAUSED")
             self.button_stop.configure(text="Resume Timer")
-        
+
+    # Timer countdown function    
     def countdown(self):
         # check if the total seconds are zero
         if self.total_seconds == 0:
@@ -82,12 +84,12 @@ class App(customtkinter.CTk):
             self.label_Time.configure(text="Time remaining: " + str(timer))
             # decrement the total seconds by one
             self.total_seconds -= 1
-            # schedule this function to run again after one second using self.after() only if the event flag is not set
+            # schedule this function to run again after one second using self.after()
             self.after(1000, self.countdown)
         
-    # Implement a timer reset function
+    # Timer reset function
     def reset_countdown(self):
-        pass
+        self.total_seconds = 0
 
 app = App()
 app.mainloop()
